@@ -4,8 +4,24 @@
   "description": "Next.js helpers for the current Yournotify API",
   "type": "module",
   "main": "src/index.js",
-  "exports": {".": "./src/index.js"},
-  "scripts": {"test": "node --input-type=module -e \"import { createYournotifyClient } from './src/index.js'; const c=createYournotifyClient({ apiKey: 'x' }); console.log(typeof c.sendEmail);\""},
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node --input-type=module -e \"import { createYournotifyClient } from './src/index.js'; const c=createYournotifyClient({ apiKey: 'x' }); console.log(typeof c.sendEmail);\""
+  },
   "author": "Yournotify",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/yournotify/yournotify-nextjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yournotify/yournotify-nextjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yournotify/yournotify-nextjs/issues"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ]
 }
