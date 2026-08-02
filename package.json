@@ -1,14 +1,15 @@
 {
   "name": "yournotify-nextjs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Next.js helpers for the current Yournotify API",
   "type": "module",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "exports": {
-    ".": "./src/index.js"
+    ".": { "types": "./src/index.d.ts", "import": "./src/index.js" }
   },
   "scripts": {
-    "test": "node --input-type=module -e \"import { createYournotifyClient } from './src/index.js'; const c=createYournotifyClient({ apiKey: 'x' }); console.log(typeof c.sendEmail);\""
+    "test": "node --test test/*.mjs"
   },
   "author": "Yournotify",
   "license": "MIT",
@@ -22,6 +23,8 @@
   },
   "files": [
     "src",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ]
 }

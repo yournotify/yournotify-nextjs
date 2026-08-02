@@ -1,0 +1,5 @@
+export type Payload=Record<string,unknown>;
+export interface Channel{send(data?:Payload):Promise<any>}
+export interface YournotifyClient{request(endpoint:string,method?:string,data?:Payload):Promise<any>;identify(externalIdOrData:string|Payload,traits?:Payload):Promise<any>;track(eventOrData:string|Payload,properties?:Payload,options?:Payload):Promise<any>;trackBatch(events:Payload[],options?:Payload):Promise<any>;alias(data:Payload):Promise<any>;email:Channel;sms:Channel;whatsapp:Channel;voice:Channel&Record<string,Function>;push:Channel;inapp:Channel;contact:Record<string,Function>;lists:Record<string,Function>;campaigns:Record<string,Function>;rewards:Record<string,Function>;loyalty:Record<string,unknown>;referrals:Record<string,unknown>;automations:Record<string,Function>}
+export function createYournotifyClient(options:{apiKey:string;apiUrl?:string;timeout?:number;maxRetries?:number}):YournotifyClient;
+export function verifyYournotifyWebhook(input:{payload:string|Payload;signature:string;timestamp?:string;secret:string;tolerance?:number}):Promise<boolean>;
