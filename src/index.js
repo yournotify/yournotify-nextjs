@@ -6,7 +6,7 @@ export function createYournotifyClient({ apiKey, apiUrl = "https://api.yournotif
     let url = base + String(endpoint).replace(/^\//, '');
     const headers = { Authorization: `Bearer ${apiKey}`, Accept: 'application/json' };
     const idempotency = data?.idempotency_key || data?.event_id;
-    const retryable = ['GET','HEAD','PUT','DELETE'].includes(upperMethod) || Boolean(idempotency) || endpoint === 'automations/events/batch';
+    const retryable = ['GET','HEAD','PUT','DELETE'].includes(upperMethod) || Boolean(idempotency) || endpoint === 'sdk/events/batch';
     if (idempotency) headers['Idempotency-Key'] = String(idempotency);
     const options = { method: upperMethod, headers, cache: 'no-store' };
     if (upperMethod === 'GET' && data && Object.keys(data).length) {
@@ -83,10 +83,10 @@ export function createYournotifyClient({ apiKey, apiUrl = "https://api.yournotif
     reviewReferralConversion: (id, conversionId, data = {}) => request(`referrals/programs/${id}/conversions/${conversionId}/review`, 'POST', data),
     getReferralRisk: (id) => request(`referrals/programs/${id}/risk`),
     createAdvocatePortalSession: (id, advocateId) => request(`referrals/programs/${id}/advocates/${advocateId}/portal-session`, 'POST', {}),
-    identify: (externalIdOrData = {}, traits = {}) => request('automations/identify', 'POST', typeof externalIdOrData === 'string' ? { external_id: externalIdOrData, ...traits } : externalIdOrData),
-    track: (eventOrData = {}, properties = {}, options = {}) => request('automations/events', 'POST', normalizeEvent(typeof eventOrData === 'string' ? { event: eventOrData, properties, ...options } : eventOrData)),
-    trackBatch: (events = [], options = {}) => request('automations/events/batch', 'POST', { events: events.map(normalizeEvent), ...options }),
-    alias: (data = {}) => request('automations/alias', 'POST', data),
+    identify: (externalIdOrData = {}, traits = {}) => request('sdk/identify', 'POST', typeof externalIdOrData === 'string' ? { external_id: externalIdOrData, ...traits } : externalIdOrData),
+    track: (eventOrData = {}, properties = {}, options = {}) => request('sdk/events', 'POST', normalizeEvent(typeof eventOrData === 'string' ? { event: eventOrData, properties, ...options } : eventOrData)),
+    trackBatch: (events = [], options = {}) => request('sdk/events/batch', 'POST', { events: events.map(normalizeEvent), ...options }),
+    alias: (data = {}) => request('sdk/alias', 'POST', data),
     getProfile: () => request('auth/me')
   };
   const channel = (name) => ({ send: (data = {}) => name === 'voice' ? request('campaigns/voice', 'POST', data) : createCampaign({ ...data, channel: name }) });
